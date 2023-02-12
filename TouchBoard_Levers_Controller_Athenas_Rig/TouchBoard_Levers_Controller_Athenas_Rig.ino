@@ -82,7 +82,7 @@ void setup() {
 void loop() {
   MPR121.updateAll();
 
-  for (int i = 0; i <= 100; i++) {
+  for (int i = 0; i <= 93; i++) {
     beambreak_value = digitalRead(beambreak_in);
     digitalWrite(beambreak_out, beambreak_value);
     delay(1);
@@ -144,6 +144,6 @@ void loop() {
     string_out.concat(right_lever_value);
     Serial.println(string_out);
 
-  //delay(100);
+  //delay(1);
 
 }

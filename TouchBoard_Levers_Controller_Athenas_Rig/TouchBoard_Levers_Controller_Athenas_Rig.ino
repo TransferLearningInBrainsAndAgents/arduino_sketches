@@ -3,8 +3,7 @@
 #include <MPR121_Datastream.h>
 #include <Wire.h>
 
-#define beambreak_in 4
-#define beambreak_out 8
+#define beambreak_in 5
 
 const uint32_t BAUD_RATE = 115200;
 const uint8_t MPR121_ADDR = 0x5C;
@@ -84,7 +83,6 @@ void loop() {
 
   for (int i = 0; i <= 93; i++) {
     beambreak_value = digitalRead(beambreak_in);
-    digitalWrite(beambreak_out, beambreak_value);
     delay(1);
   }
   

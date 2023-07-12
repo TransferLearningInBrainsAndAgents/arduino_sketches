@@ -3,7 +3,7 @@
 #include <MPR121_Datastream.h>
 #include <Wire.h>
 
-#define beambreak_in 5
+#define beambreak_in 4
 #define left_push_button_switch 9
 #define right_push_button_switch 10
 
@@ -143,7 +143,6 @@ void loop() {
     string_out.concat(leftLeverPressedTime);
     string_out.concat(" #RightTime=");
     string_out.concat(rightLeverPressedTime);
-    string_out.concat("#LeftPress=");
     string_out.concat(" #LeftPress=");
     string_out.concat(left_lever_value);
     string_out.concat(" #RightPress=");

@@ -5,6 +5,8 @@
 
 #define beambreak_in 4
 #define beambreak_out 8
+#define left_push_button_switch 9
+#define right_push_button_switch 10
 
 const uint32_t BAUD_RATE = 115200;
 const uint8_t MPR121_ADDR = 0x5C;
@@ -15,6 +17,7 @@ const bool MPR121_DATASTREAM_ENABLE = false;
 int beambreak_value = 0;
 int left_lever_value = 0;
 int right_lever_value = 0;
+int test_value = 0;
 
 unsigned long currentTime = 0;
 unsigned long leftLeverStartTime = 0;
@@ -28,6 +31,8 @@ void setup() {
 
   Serial.println("1");
   pinMode(beambreak_in, INPUT_PULLUP);
+  pinMode(left_push_button_switch, INPUT_PULLUP);
+  pinMode(right_push_button_switch, INPUT_PULLUP);
   
   if(!MPR121.begin(MPR121_ADDR)){
     Serial.println("error setting up MPR121");
@@ -63,8 +68,8 @@ void setup() {
     MPR121.restoreSavedThresholds();
     MPR121_Datastream.begin(&Serial);
   }else{
-    MPR121.setTouchThreshold(100);
-    MPR121.setReleaseThreshold(60);
+    MPR121.setTouchThreshold(40); // 50 for no button attached, 40 for buttons attached
+    MPR121.setReleaseThreshold(20); // 30 for no buttons attached, 20 for buttons attached
   }
 
   MPR121.setFFI(FFI_10);
@@ -92,8 +97,10 @@ void loop() {
     MPR121_Datastream.update();
   }
 
-  left_lever_value = MPR121.getTouchData(1);
-  right_lever_value = MPR121.getTouchData(0);
+  left_lever_value =  !digitalRead(left_push_button_switch);
+  right_lever_value =  !digitalRead(right_push_button_switch);
+  //left_lever_value = MPR121.getTouchData(1);
+  //right_lever_value = MPR121.getTouchData(0);
     
   if (beambreak_value == 0)
   {
@@ -132,15 +139,16 @@ void loop() {
     rightLeverPressedTime = 0;
   }
 
+
   String string_out = "Poke=";
     string_out.concat(beambreak_value);
-    string_out.concat("#LeftTime=");
+    string_out.concat(" #LeftTime=");
     string_out.concat(leftLeverPressedTime);
-    string_out.concat("#RightTime=");
+    string_out.concat(" #RightTime=");
     string_out.concat(rightLeverPressedTime);
-    string_out.concat("#LeftPress=");
+    string_out.concat(" #LeftPress=");
     string_out.concat(left_lever_value);
-    string_out.concat("#RightPress=");
+    string_out.concat(" #RightPress=");
     string_out.concat(right_lever_value);
     Serial.println(string_out);
 

@@ -3,8 +3,7 @@
 #include <MPR121_Datastream.h>
 #include <Wire.h>
 
-#define beambreak_in 4
-#define beambreak_out 8
+#define beambreak_in 5
 #define left_push_button_switch 9
 #define right_push_button_switch 10
 
@@ -87,9 +86,7 @@ void setup() {
 void loop() {
   MPR121.updateAll();
 
-  for (int i = 0; i <= 100; i++) {
     beambreak_value = digitalRead(beambreak_in);
-    digitalWrite(beambreak_out, beambreak_value);
     delay(1);
   }
   
@@ -146,12 +143,13 @@ void loop() {
     string_out.concat(leftLeverPressedTime);
     string_out.concat(" #RightTime=");
     string_out.concat(rightLeverPressedTime);
+    string_out.concat("#LeftPress=");
     string_out.concat(" #LeftPress=");
     string_out.concat(left_lever_value);
     string_out.concat(" #RightPress=");
     string_out.concat(right_lever_value);
     Serial.println(string_out);
 
-  //delay(100);
+  //delay(1);
 
 }

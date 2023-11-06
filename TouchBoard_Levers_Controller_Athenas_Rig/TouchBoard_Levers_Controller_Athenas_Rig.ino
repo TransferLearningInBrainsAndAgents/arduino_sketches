@@ -84,11 +84,11 @@ void setup() {
 }
 
 void loop() {
-  MPR121.updateAll();
+  //MPR121.updateAll();
 
-    beambreak_value = digitalRead(beambreak_in);
-    delay(1);
-  }
+  beambreak_value = digitalRead(beambreak_in);
+  delay(50);
+  
   
   if (MPR121_DATASTREAM_ENABLE){
     MPR121_Datastream.update();

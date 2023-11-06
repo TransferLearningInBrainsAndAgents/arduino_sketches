@@ -1,6 +1,6 @@
 
 # define relay_1 4
-# define beambreak_1_in 9
+# define beambreak_1_in 6
 
 
 int incomingByte = 0;
